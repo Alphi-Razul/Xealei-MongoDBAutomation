@@ -51,65 +51,65 @@ public class MongoDB {
 
 		System.out.println("Successfully Inserted");
 
-		// Create a new workbook
-		File file = new File("F:\\Xealei-POC\\src\\test\\resources\\Excel\\MongoDB.xlsx");
-	
-		FileInputStream stream = new FileInputStream(file);
-
-		Workbook workbook = new XSSFWorkbook();
-		Sheet sheet = workbook.createSheet("Data");
-
-		// Fetch MongoDB documents
-		FindIterable<Document> documents = collection.find();
-        int rowNumber=0;
-
-		// Add headers to the Excel file
-        Row headerRow = sheet.createRow(rowNumber++);
-        int columnNumber = 0;
-        for (String key : documents.first().keySet()) {
-            Cell cell = headerRow.createCell(columnNumber++);
-            cell.setCellValue(key);
-        }
-		
-// Add data to the Excel file
-        for (Document document : documents) {
-            Row dataRow = sheet.createRow(rowNumber++);
-            columnNumber = 0;
-            for (String key : document.keySet()) {
-                Cell cell = dataRow.createCell(columnNumber++);
-                Object value = document.get(key);
-                if (value instanceof String) {
-                    cell.setCellValue((String) value);
-                } else if (value instanceof Integer) {
-                    cell.setCellValue((Integer) value);
-                } else if (value instanceof Double) {
-                    cell.setCellValue((Double) value);
-                } else if (value instanceof Boolean) {
-                    cell.setCellValue((Boolean) value);
-                } else {
-                    cell.setCellValue(value.toString());
-                }
-            }
-        }
-
-// Auto-size columns
-        for (int i = 0; i < documents.first().keySet().size(); i++) {
-            sheet.autoSizeColumn(i);
-        }
-
-// Save the workbook as an Excel file
-        try {
-            FileOutputStream fileOut = new FileOutputStream(file);
-            workbook.write(fileOut);
-            fileOut.close();
-            workbook.close();
-            System.out.println("Excel file created successfully.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-// Close the MongoDB connection
-        client.close();
+//		// Create a new workbook
+//		File file = new File("F:\\Xealei-POC\\src\\test\\resources\\Excel\\MongoDB.xlsx");
+//	
+//		FileInputStream stream = new FileInputStream(file);
+//
+//		Workbook workbook = new XSSFWorkbook();
+//		Sheet sheet = workbook.createSheet("Data");
+//
+//		// Fetch MongoDB documents
+//		FindIterable<Document> documents = collection.find();
+//        int rowNumber=0;
+//
+//		// Add headers to the Excel file
+//        Row headerRow = sheet.createRow(rowNumber++);
+//        int columnNumber = 0;
+//        for (String key : documents.first().keySet()) {
+//            Cell cell = headerRow.createCell(columnNumber++);
+//            cell.setCellValue(key);
+//        }
+//		
+//// Add data to the Excel file
+//        for (Document document : documents) {
+//            Row dataRow = sheet.createRow(rowNumber++);
+//            columnNumber = 0;
+//            for (String key : document.keySet()) {
+//                Cell cell = dataRow.createCell(columnNumber++);
+//                Object value = document.get(key);
+//                if (value instanceof String) {
+//                    cell.setCellValue((String) value);
+//                } else if (value instanceof Integer) {
+//                    cell.setCellValue((Integer) value);
+//                } else if (value instanceof Double) {
+//                    cell.setCellValue((Double) value);
+//                } else if (value instanceof Boolean) {
+//                    cell.setCellValue((Boolean) value);
+//                } else {
+//                    cell.setCellValue(value.toString());
+//                }
+//            }
+//        }
+//
+//// Auto-size columns
+//        for (int i = 0; i < documents.first().keySet().size(); i++) {
+//            sheet.autoSizeColumn(i);
+//        }
+//
+//// Save the workbook as an Excel file
+//        try {
+//            FileOutputStream fileOut = new FileOutputStream(file);
+//            workbook.write(fileOut);
+//            fileOut.close();
+//            workbook.close();
+//            System.out.println("Excel file created successfully.");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//// Close the MongoDB connection
+//        client.close();
 }
 
 }
